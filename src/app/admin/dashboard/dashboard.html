@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="admin-card">
+    <h2>LJ Holdings - Admin Dashboard</h2>
+<!-- This is the comment for checking the github work dont stress about it. -->
+    <form (ngSubmit)="addRosterEntry()">
+      <div class="form-group">
+        <label>Staff Name</label>
+        <input type="text" [(ngModel)]="newEntry.name" name="name" required />
+      </div>
+
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" [(ngModel)]="newEntry.date" name="date" required />
+      </div>
+
+      <div class="form-group">
+        <label>Start Time</label>
+        <input type="time" [(ngModel)]="newEntry.startTime" name="startTime" required />
+      </div>
+
+      <div class="form-group">
+        <label>End Time</label>
+        <input type="time" [(ngModel)]="newEntry.endTime" name="endTime" required />
+      </div>
+
+      <div class="form-group">
+        <label>Shift Duration (hours)</label>
+        <input [value]="newEntry.startTime && newEntry.endTime ? calculateHours(newEntry.startTime, newEntry.endTime) : ''" disabled />
+      </div>
+
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" [(ngModel)]="newEntry.location" name="location" required />
+      </div>
+
+      <div class="form-group">
+        <label>Task</label>
+        <input type="text" [(ngModel)]="newEntry.task" name="task" />
+      </div>
+
+      <div class="form-group">
+        <label>Notes</label>
+        <input type="text" [(ngModel)]="newEntry.notes" name="notes" />
+      </div>
+
+      <button type="submit">Add Entry</button>
+      <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+    </form>
+
+    <h3>Current Week Roster: {{ currentWeekRange() }}</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Date</th><th>Start</th><th>End</th><th>Hours</th><th>Location</th><th>Task</th><th>Notes</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of currentWeekRoster()">
+          <td>{{r.name}}</td>
+          <td>{{r.date}}</td>
+          <td>{{r.startTime}}</td>
+          <td>{{r.endTime}}</td>
+          <td>{{r.hours}}</td>
+          <td>{{r.location}}</td>
+          <td>{{r.task}}</td>
+          <td>{{r.notes}}</td>
+          <td><button (click)="deleteEntry(r.id)">Delete</button></td>
+        </tr>
+        <tr *ngIf="currentWeekRoster().length === 0">
+          <td colspan="9" style="text-align:center">No shifts scheduled for this week.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Previous Weeks</h3>
+    <div class="previous-weeks">
+      <button *ngFor="let week of previousWeekRanges()" (click)="selectedWeek = week">
+        {{ week }}
+      </button>
+    </div>
+
+    <div *ngIf="selectedWeek">
+      <h4>Roster for: {{ selectedWeek }}</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th><th>Date</th><th>Start</th><th>End</th><th>Hours</th><th>Location</th><th>Task</th><th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of getRosterByWeek(selectedWeek)">
+            <td>{{r.name}}</td>
+            <td>{{r.date}}</td>
+            <td>{{r.startTime}}</td>
+            <td>{{r.endTime}}</td>
+            <td>{{r.hours}}</td>
+            <td>{{r.location}}</td>
+            <td>{{r.task}}</td>
+            <td>{{r.notes}}</td>
+          </tr>
+          <tr *ngIf="getRosterByWeek(selectedWeek).length === 0">
+            <td colspan="8" style="text-align:center">No shifts for this week.</td>
+         

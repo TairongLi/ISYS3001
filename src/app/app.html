@@ -1,0 +1,63 @@
+<div class="app-container">
+  <!-- LOGIN PAGE -->
+  <div *ngIf="!isLoggedIn()" class="login-box">
+    <h2>Login</h2>
+    <input type="text" [(ngModel)]="username" placeholder="Username" />
+    <input type="password" [(ngModel)]="password" placeholder="Password" />
+    <button (click)="login()">Login</button>
+    <p class="error" *ngIf="error()">{{ error() }}</p>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div *ngIf="isLoggedIn() && isAdmin()" class="dashboard">
+    <h2>Admin Dashboard</h2>
+    <p>Welcome, Admin!</p>
+
+    <!-- Add Roster Entry -->
+    <div class="roster-section">
+      <h3>Add Roster Entry</h3>
+      <input type="text" [(ngModel)]="newEntry.day" placeholder="Day" />
+      <input type="text" [(ngModel)]="newEntry.task" placeholder="Task" />
+      <button (click)="addRosterEntry()">Add Entry</button>
+    </div>
+
+    <!-- View Current Roster -->
+    <div class="roster-section">
+      <h3>Current Roster</h3>
+      <table>
+        <thead>
+          <tr><th>Day</th><th>Task</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of adminRoster()">
+            <td>{{ r.day }}</td>
+            <td>{{ r.task }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button (click)="logout()">Logout</button>
+  </div>
+
+  <!-- STAFF DASHBOARD -->
+  <div *ngIf="isLoggedIn() && isStaff()" class="dashboard">
+    <h2>Staff Dashboard</h2>
+    <p>Welcome, Staff!</p>
+
+    <h3>Your Weekly Roster</h3>
+    <table>
+      <thead>
+        <tr><th>Day</th><th>Task</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of adminRoster()">
+          <td>{{ r.day }}</td>
+          <td>{{ r.task }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>

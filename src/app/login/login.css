@@ -1,0 +1,95 @@
+/* Container centering and soft background */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #e6ecf0; /* soft gray-blue */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Login card styling */
+.login-card {
+  background-color: #ffffff; /* white */
+  padding: 50px 40px; /* bigger padding */
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* slightly stronger shadow */
+  width: 420px; /* bigger width */
+  max-width: 90%;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Heading */
+.login-card h2 {
+  margin-bottom: 30px; /* more space */
+  color: #333; /* dark gray */
+  font-weight: 600;
+  font-size: 28px; /* bigger heading */
+}
+
+/* Input fields */
+.login-card input {
+  width: 92%; /* slightly bigger */
+  padding: 14px 16px;
+  margin: 14px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 17px; /* slightly larger font */
+  transition: border-color 0.3s;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #4877aa;
+  box-shadow: 0 0 6px rgba(85, 130, 178, 0.35);
+}
+
+/* Button styling */
+.login-card button {
+  background-color: #587a9e;
+  color: #fff;
+  border: none;
+  padding: 16px 30px; /* bigger button */
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 55%; /* slightly bigger */
+  font-size: 17px; /* bigger font */
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.login-card button:hover {
+  background-color: #3f658d;
+  transform: scale(1.04);
+}
+
+/* Error message */
+.error {
+  color: #d9534f;
+  margin-top: 15px;
+  font-weight: 500;
+  font-size: 16px; /* slightly bigger */
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .login-card {
+    width: 95%;
+    padding: 40px 25px;
+  }
+
+  .login-card button {
+    width: 75%;
+  }
+
+  .login-card input {
+    width: 95%;
+  }
+}
