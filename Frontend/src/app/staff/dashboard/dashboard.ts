@@ -1,4 +1,4 @@
-import { Component, signal, computed, OnDestroy } from '@angular/core';
+import { Component, signal, computed, OnDestroy, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface RosterEntry {
@@ -53,9 +53,10 @@ export class StaffDashboardComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     window.removeEventListener('storage', this.storageHandler);
+  }
 
   // 🔹 Current week (Mon–Sun)
-  currentWeekRoster = computed(() => {
+  readonly currentWeekRoster: Signal<RosterEntry[]> = computed(() => {
     const now = new Date();
     const monday = this.getMonday(now);
     const sunday = new Date(monday);
@@ -67,7 +68,7 @@ export class StaffDashboardComponent implements OnDestroy {
     });
   });
 
-  currentWeekRange() {
+  currentWeekRange(): string {
     const now = new Date();
     const monday = this.getMonday(now);
     const sunday = new Date(monday);
@@ -76,7 +77,7 @@ export class StaffDashboardComponent implements OnDestroy {
   }
 
   // 🔹 Previous weeks (Mon–Sun)
-  previousWeekRanges() {
+  previousWeekRanges(): string[] {
     const ranges: string[] = [];
     const now = new Date();
     let monday = this.getMonday(now);
@@ -99,7 +100,7 @@ export class StaffDashboardComponent implements OnDestroy {
     return ranges;
   }
 
-  getRosterByWeek(weekRange: string) {
+  getRosterByWeek(weekRange: string): RosterEntry[] {
     const [startStr, endStr] = weekRange.split(' - ');
     const start = new Date(startStr);
     const end = new Date(endStr);
